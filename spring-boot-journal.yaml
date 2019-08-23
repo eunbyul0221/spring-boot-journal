@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: spring-boot-journal
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: spring-boot-journal
+      labels:
+        app: journal
+    spec:
+      containers:
+      - name: journal
+        image: gcr.io/eunbyul/spring-boot-journal:v1
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+             path: /health
+             port: 12000
+        command: ["java", "-jar", "spring-boot-journal-0.0.1-SNAPSHOT.jar"]
+        ports:
+        - name: journal
+          containerPort: 12000
