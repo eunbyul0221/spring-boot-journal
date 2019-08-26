@@ -112,12 +112,21 @@ NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 spring-boot-journal   1         1         1            1           8h
 ```
 
+빌드 진행의 Stage별로 소요 시간 및 결과 정보 등을 확인 할 수 있다.
+  ![](doc/images/jenkins_view2.PNG) 
+
+
 웹에서 확인하기
 ```shell
 $ export POD_NAME=$(kubectl get pods -n journal -o jsonpath="{.items[0].metadata.name}")
 $ kubectl port-forward -n journal $POD_NAME 12000:12000 >> /dev/null &
 [1] 3928
 ```
+
+Cloud shell에서 포트를 변경하여 미리보기를 실행한 후 /swagger-ui.html 페이지로 접속하면 아래 페이지를 확인 할 수 있다.
+
+  ![](doc/images/swagger-ui01.PNG) 
+  
 
 POD 확인
 ```shell
