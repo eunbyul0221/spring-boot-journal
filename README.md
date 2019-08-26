@@ -5,7 +5,7 @@ spring-boot-journal 앱과 kubernetes 배포 구성
 Helm을 이용한 Kubernetes에 Jenkins 설치하기
 
 Jenkins -> 새로운 Item -> 
-
+![] (doc/images/jenkins_new_item01.PNG)
 
 배포 결과 확인
 ```shell
