@@ -67,7 +67,12 @@ spec:
         container('kubectl') {
         // Change deployed image in canary to the one we just built
           sh("sed -i.bak 's#gcr.io/eunbyul/spring-boot-journal:v1#${IMAGE_TAG}#' spring-boot-journal.yaml")
-          step([$class: 'KubernetesEngineBuilder',namespace:'journal', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'spring-boot-journal.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          step([$class: 'KubernetesEngineBuilder',namespace:'journal', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/deploy.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
+          step([$class: 'KubernetesEngineBuilder',namespace:'journal', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/service.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          step([$class: 'KubernetesEngineBuilder',namespace:'journal', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/ingress.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+
+           sh("echo http://`kubectl --namespace=journal get ingress/journal-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`")
+		  
        }
       }
     }
