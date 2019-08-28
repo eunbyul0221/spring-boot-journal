@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: journal-ingress
+spec:
+  backend:
+    serviceName: spring-boot-journal
+    servicePort: 12000
